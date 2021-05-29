@@ -84,7 +84,10 @@ console.log("Employee wage: " + empWage);
   let totalWorkingDays=0;
   let empDailyWageArray = new Array();
   let empDailyWageMap = new Map();
+  //UC9 declaration
   let empDailyHourMap = new Map();
+  //UC10 declaration
+  let empDayWageHourArr = new Array();
   while(totalEmpHours<MAX_HOURS_IN_MONTHS && totalWorkingDays<MAX_NUMBER_OF_DAYS)
   {
       totalWorkingDays++;
@@ -95,12 +98,25 @@ console.log("Employee wage: " + empWage);
           empHours=PART_TIME_HOURS;
       }
       totalEmpHours += empHours;
-      //UC 6 refactor
+      //UC6 refactor
       empDailyWageArray.push(empHours*WAGE_PER_HOUR);
-      //UC 8 refactor
+      //UC8 refactor
       empDailyWageMap.set(totalWorkingDays,calculateDailyWage(empHours));
-       //UC 9 refactor
+      //UC9 refactor
       empDailyHourMap.set(totalWorkingDays,empHours);
+      //UC10 refactor
+      empDayWageHourArr.push(
+        {
+            //pushing object into the array with following properties:
+            dayNumber: totalWorkingDays,
+            dailyHr: empHours,
+            dailyWage: calculateDailyWage(empHours),
+            // overriding toString() method to print the contents of array without using foreach directly by calling in console.log()
+            toString() 
+            {
+                return '\nDay: ' + this.dayNumber + '\t=>' +'\tDayHour: ' + this.dailyHr+'\t=>'+ '\tDayWage: ' + this.dailyWage ;
+            }
+        });
   }
   let totalEmpWage = WAGE_PER_HOUR*totalEmpHours;
   console.log("Total working days  : "+totalWorkingDays+"\nTotal working hours : "+totalEmpHours+" \nTotal employee wage : " + totalEmpWage);
@@ -180,7 +196,7 @@ console.log(empDailyWageMap);
 console.log("Total wage using emp wage map: "+Array.from(empDailyWageMap.values()).reduce(totalWages));
 
 // UC9 Using the Daily Wage Map and Daily Hour Map perform following operations using Arrow Functions:
-// 9.a. Calculating total Wage and total hours worked.
+// 9.a Calculating total Wage and total hours worked.
 console.log("UC9.a Calculating total Wage and total hours worked.");
 totalWage = empDailyWageArray.filter(empWage=>empWage>0).reduce(totalWages,0);
 function calculateTotalHrs(totalHr,dailyHr)
@@ -205,3 +221,9 @@ empDailyHourMap.forEach((value,key,map)=>{
 console.log("Full working days: "+fullWorkingDaysArr);
 console.log("Half working days: "+halfWorkingDaysArr);
 console.log("Non working days: "+nonWorkingDaysArr);
+// UC10 Ability to store the Day, Hours Worked and Wage Earned in a single object.   
+console.log("UC 10\nShowing daily hours worked and wage alongwith day using object "+empDayWageHourArr.toString());
+//printing each property using foreach
+empDayWageHourArr.forEach(x=>{
+    console.log(x.dayNumber+" => "+x.dailyHr+" => "+x.dailyWage);
+});
