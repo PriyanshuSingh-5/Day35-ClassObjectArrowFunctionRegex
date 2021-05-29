@@ -180,7 +180,7 @@ console.log(empDailyWageMap);
 console.log("Total wage using emp wage map: "+Array.from(empDailyWageMap.values()).reduce(totalWages));
 
 // UC9 Using the Daily Wage Map and Daily Hour Map perform following operations using Arrow Functions:
-// 9.a Calculating total Wage and total hours worked.
+// 9.a. Calculating total Wage and total hours worked.
 console.log("UC9.a Calculating total Wage and total hours worked.");
 totalWage = empDailyWageArray.filter(empWage=>empWage>0).reduce(totalWages,0);
 function calculateTotalHrs(totalHr,dailyHr)
